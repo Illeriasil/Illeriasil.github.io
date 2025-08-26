@@ -1,37 +1,130 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Site en construction</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Illeriasil.zone</title>
   <style>
     body {
-      background-color: #222;
-      color: #fff;
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: black;
+      color: white;
     }
-    h1 {
-      font-size: 2em;
-      margin-bottom: 1em;
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.85);
+      animation: fadeOut 1s ease-in-out forwards;
+      animation-delay: 2.5s;
     }
-    p {
-      font-size: 1.2em;
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    canvas#stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    a {
+      color: #00ffff;
+      text-decoration: none;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .fade-enter {
+      opacity: 0;
+      transition: opacity 0.5s ease-in;
+    }
+
+    .fade-enter-active {
+      opacity: 1;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      text-align: center;
     }
   </style>
-  <script>
-    setTimeout(() => {
-      window.location.href = "home.html";
-    }, 5000);
-  </script>
 </head>
 <body>
-  <h1>🚧 Site en construction</h1>
-  <p>Redirection dans quelques secondes...</p>
+  <div id="loader">
+    <h1>Loading Illeriasil.zone...</h1>
+  </div>
+  <canvas id="stars"></canvas>
+
+  <main>
+    <h1>Welcome to Illeriasil.zone</h1>
+    <p>This is your custom GitHub Pages site with a cosmic touch.</p>
+    <a href="about.html">Go to About Page</a>
+  </main>
+
+  <script>
+    // Loader fade out
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.body.style.overflow = "auto";
+      }, 3000);
+    });
+
+    // Star animation
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const stars = Array.from({ length: 150 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.5,
+      speed: Math.random() * 0.5 + 0.2
+    }));
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) star.y = 0;
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    drawStars();
+
+    // Page transition
+    document.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        document.body.classList.add("fade-enter");
+        setTimeout(() => {
+          window.location = link.href;
+        }, 500);
+      });
+    });
+  </script>
 </body>
 </html>
