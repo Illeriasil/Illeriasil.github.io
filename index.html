@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Site Simple</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Bienvenue sur mon site</h1>
+    <nav>
+      <a href="#">Accueil</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>À propos</h2>
+      <p>Ceci est un site web minimaliste construit avec HTML5, CSS, PHP et JavaScript.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contactez-moi</h2>
+      <form action="contact.php" method="POST" onsubmit="return validateForm()">
+        <input type="text" name="name" placeholder="Votre nom" required>
+        <input type="email" name="email" placeholder="Votre email" required>
+        <textarea name="message" placeholder="Votre message" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 - Mon Site Simple</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
